@@ -1,0 +1,74 @@
+import java.util.Arrays;
+
+//O(nlogn) "Разделяй и властвуй" Разделяй:Рекурсивно делим массив на две половины, пока не получим подмассивы из одного элемента (уже отсортированы).
+//Властвуй:Сливаем отсортированные подмассивы, сравнивая элементы попарно и помещая их в результирующий массив в правильном порядке.
+
+class MergeSort {
+
+    public static void mergeSort(int[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+    }
+
+    private static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSort(arr, left, mid);      // Рекурсивная сортировка левой половины
+            mergeSort(arr, mid + 1, right); // Рекурсивная сортировка правой половины
+            merge(arr, left, mid, right);   // Слияние отсортированных половин
+        }
+    }
+
+    private static void merge(int[] arr, int left, int mid, int right) {
+        int n1 = mid - left + 1;         // Размер левого подмассива
+        int n2 = right - mid;            // Размер правого подмассива
+
+        int[] L = new int[n1];          // Временный массив для левой половины
+        int[] R = new int[n2];          // Временный массив для правой половины
+
+        // Копирование данных во временные массивы
+        for (int i = 0; i < n1; ++i) {
+            L[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; ++j) {
+            R[j] = arr[mid + 1 + j];
+        }
+
+        // Слияние временных массивов обратно в arr
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Копирование оставшихся элементов из L[], если таковые имеются
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        // Копирование оставшихся элементов из R[], если таковые имеются
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 11, 13, 5, 6, 7};
+        System.out.println("Исходный массив:");
+        System.out.println(Arrays.toString(arr));
+
+        mergeSort(arr);
+
+        System.out.println("Отсортированный массив:");
+        System.out.println(Arrays.toString(arr));
+    }
+}
