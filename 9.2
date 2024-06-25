@@ -1,0 +1,58 @@
+import java.util.Arrays;
+// nlogn
+public class QuickSort 
+{
+
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high); // pi - индекс опорного элемента
+
+            quickSort(arr, low, pi - 1);  // Сортировка левой части
+            quickSort(arr, pi + 1, high); // Сортировка правой части
+        }
+    }
+
+    private static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high]; // Выбираем последний элемент как опорный
+        int i = (low - 1); // Индекс меньшего элемента
+
+        for (int j = low; j < high; j++){
+            // Если текущий элемент меньше или равен опорному
+            if (arr[j] <= pivot) {
+                i++;
+
+                // Меняем местами arr[i] и arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        // Меняем местами arr[i+1] и arr[high] (pivot)
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1; // Возвращаем индекс опорного элемента
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        int n = arr.length;
+
+        System.out.println("Исходный массив:");
+        printArray(arr);
+
+        quickSort(arr, 0, n - 1);
+
+        System.out.println("Отсортированный массив:");
+        printArray(arr);
+    }
+
+    static void printArray(int[] arr) {
+        for (int j : arr) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+    }
+}
