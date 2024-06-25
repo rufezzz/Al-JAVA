@@ -1,0 +1,124 @@
+public class LAB ТРИУГОЛЬНЫЕ ЧИСЛА
+{
+    public static int Cal_Triangle_Numb(int n) {
+        if (n == 1) {
+            return 1;
+        } else {
+            return n + Cal_Triangle_Numb(n - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 7;  Задаем значение n для нахождения n-го треугольного числа
+        int result = Cal_Triangle_Numb(n);
+        System.out.println(Номер треугольника в позиции  + n +  is  + result);
+        System.out.println(Сумма чисел треугольника );
+        for (int i = 1; i = n; i++) {
+            System.out.println(Cal_Triangle_Numb((i)));
+        }
+    }
+}
+
+
+
+
+public class LAB ЧИСЛА ФИББОНАЧИ
+{
+
+    public static int fibonacci(int n) {
+        if (n = 2) {
+            return 1;
+        } else {
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 10;  Задаем значение n для нахождения числа Фибоначчи
+        int result = fibonacci(n);
+        System.out.println(Число Фибоначчи в позиции  + n +  это  + result);
+        System.out.println(Сумма чисел фиббоначи );
+        for(int i = 1; i=n; i++)
+        {
+            System.out.println(fibonacci((i)));
+        }
+    }
+}
+
+
+
+public class LAB Факториал
+{
+    public static int calculateFactorial(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n  calculateFactorial(n - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 5;  Задаем значение n для нахождения факториала
+        int result = calculateFactorial(n);
+        System.out.println(Factorial of  + n +  is  + result);
+        System.out.println(sUM OF factorial NUMBERS );
+        for(int i = 1; i=n; i++)
+        {
+            System.out.println(calculateFactorial((i)));
+        }
+    }
+}
+
+
+
+public class LAB Бинарный поиск
+{
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+        int target = 7;
+        int result = binarySearch(arr, target, 0, arr.length - 1);
+        if (result == -1) {
+            System.out.println(Element not found);
+        } else {
+            System.out.println(Element found at index  + result);
+        }
+    }
+
+    public static int binarySearch(int[] arr, int target, int low, int high) {
+        if (low  high) {
+            return -1;  Элемент не найден
+        }
+
+        int mid = low + (high - low)  2;
+
+        if (arr[mid] == target) {
+            return mid;  Элемент найден
+        } else if (arr[mid]  target) {
+            return binarySearch(arr, target, mid + 1, high);  Ищем в правой половине
+        } else {
+            return binarySearch(arr, target, low, mid - 1);  Ищем в левой половине
+        }
+    }
+}
+
+
+
+public class LAB Ханойские Башни
+{
+    public static void hanoi(int n, char fromRod, char toRod, char auxRod) {
+        if (n == 1)
+        {
+            System.out.println(Сдвинуть диск 1 со стержня  + fromRod +  на стержень  + toRod);
+            return;
+        }
+        hanoi(n - 1, fromRod, auxRod, toRod);
+        System.out.println(Сдвинуть диск  + n +  со стержня  + fromRod +  на стержень  + toRod);
+        hanoi(n - 1, auxRod, toRod, fromRod);
+    }
+
+    public static void main(String[] args) {
+        int n = 3;  Количество дисков
+        hanoi(n, 'A', 'C', 'B');  Вызов функции hanoi для перемещения дисков с башни A на башню C через башню B
+    }
+
+}
