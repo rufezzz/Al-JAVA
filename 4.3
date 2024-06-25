@@ -1,0 +1,122 @@
+class Priora
+{
+    private int maxSize;
+    private long[] prioraArrays;
+    private int front;
+    private int rear;
+    private int nItems;
+
+    public Priora(int size)
+    {
+        maxSize = size;
+        prioraArrays = new long[maxSize];
+        front=0;
+        rear = -1;//при нуле будет 0 вписан в очередь
+        nItems=0;
+    }
+
+    public void insert(long value)
+    {
+        if (rear == (maxSize-1))
+        {
+            rear = -1;
+        }
+        if (nItems == 0)
+        {
+            prioraArrays[0]=value;
+            rear = 0;
+            nItems++;
+        }
+        else
+        {
+            int pok=0;
+            while (pok < nItems && prioraArrays[pok] > value) {
+                pok++;
+            }
+            for (int j = nItems; j>pok; j--)//встроенная сортировка
+            {
+                prioraArrays[j]=prioraArrays[j-1];//пустота заменилась на самый последний
+            }
+            prioraArrays[pok]=value;
+            rear=nItems;
+            nItems++;
+
+        }
+
+
+    }
+
+    public long remove()
+    {
+        /*long temp = prioraArrays[front];             //не трогать
+        for (int j = front; j < nItems - 1; j++) {
+            prioraArrays[j] = prioraArrays[j + 1];
+        }
+        nItems--;
+        rear--;
+        return temp;*/
+        long j = prioraArrays[front++];
+        if (front==(maxSize))//при выходе за границу
+        {front=0;}
+        nItems--;
+        return j;
+    }
+
+    public long peekFront()
+    {
+        return prioraArrays[front];
+    }
+
+    public long peekRear()
+    {
+        return prioraArrays[rear];
+    }
+
+    public boolean isEmpty()
+    {
+        return (nItems==0);
+    }
+
+    public boolean isFull()
+    {
+        return (nItems==maxSize);
+    }
+
+    public int size()
+    {
+        return nItems;
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Priora priora;
+        priora = new Priora(8);
+
+        priora.insert(12);
+        priora.insert(9);
+        priora.insert(122);
+        priora.insert(3);
+        priora.insert(11);
+        priora.insert(211);
+        priora.insert(10);
+        priora.insert(15);
+
+        //последнее отсорченное число - rear, первое отсорченное число добавленное в массив(то есть верх письма) - front
+
+
+        System.out.println("Size: " + priora.size());
+
+        System.out.println("Front Value: " + priora.peekFront());
+        System.out.println("Rear Value: " + priora.peekRear());
+
+        while(!priora.isEmpty())
+        {
+            long value = priora.remove();
+            System.out.print(value);
+            System.out.print(" ");
+        }
+    }
+}
