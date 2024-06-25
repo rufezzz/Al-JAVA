@@ -1,0 +1,45 @@
+import java.util.Arrays;
+
+class ShellSort {
+
+    public static void shellSort(int[] arr) {
+        int n = arr.length;
+
+        // Начинаем с большого интервала, постепенно уменьшая его
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            // Сортировка вставками для каждого интервала gap
+            for (int i = gap; i < n; i++) {
+                int temp = arr[i];
+                int j;
+
+                // Сдвигаем отсортированные элементы подмассива arr[0...i-gap...i-2*gap...j]
+                // на одну позицию вправо, если они больше, чем temp
+                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                    arr[j] = arr[j - gap];
+                }
+
+                // Вставляем temp на его правильную позицию в отсортированном подмассиве
+                arr[j] = temp;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 34, 54, 2, 3};
+
+        System.out.println("Исходный массив:");
+        printArray(arr);
+
+        shellSort(arr);
+
+        System.out.println("Отсортированный массив:");
+        printArray(arr);
+    }
+
+    static void printArray(int[] arr) {
+        for (int j : arr) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+    }
+}
