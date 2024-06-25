@@ -1,0 +1,110 @@
+import java.util.Arrays;
+
+class HighArray
+{
+    private long[] a;
+    private int nElems;
+
+    public HighArray(int max)
+    {
+        a = new long[max];
+        nElems = 0;
+    }
+
+    public void insert(long value)
+    {
+        a[nElems] = value;
+        nElems++;
+    }
+
+    public void bubleSort()
+    {
+        for (int i = 0; i < nElems - 1; i++)
+        {
+            for (int j = 0; j < nElems - 1; j++)
+            {
+                if (a[j] > a[j + 1])
+                {
+                    long temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public void selectionSort()
+    {
+        int min;
+
+        for (int i = 0; i < nElems - 1; i++)
+        {
+            min = i;
+
+            for (int j = i + 1; j < nElems; j++)
+            {
+                if (a[j] < a[min])
+                {
+                    min = j;
+                }
+            }
+
+            long temp = a[i];
+            a[i] = a[min];
+            a[min] = temp;
+        }
+    }
+
+    public void insertionSort()
+    {
+        for (int i = 1; i < nElems; i++)
+        {
+            long temp = a[i];
+
+            for (int j = i - 1; j >= 0 && a[j] > temp; j--)
+            {
+                a[j + 1] = a[j];
+                a[j] = temp;
+            }
+
+        }
+    }
+
+    public void display()
+    {
+        for(int j = 0; j < nElems; j++)
+        {
+            System.out.print(a[j] + " ");
+            System.out.println("");
+        }
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        int maxSize = 100;
+        HighArray arr;
+        arr = new HighArray(maxSize);
+
+        arr.insert(77);
+        arr.insert(99);
+        arr.insert(44);
+        arr.insert(55);
+        arr.insert(22);
+        arr.insert(88);
+        arr.insert(11);
+        arr.insert(00);
+        arr.insert(66);
+        arr.insert(130);
+        arr.insert(-2);
+
+        //arr.bubleSort();
+        //arr.selectionSort();
+        //arr.insertionSort();
+
+        arr.display();
+
+
+    }
+}
