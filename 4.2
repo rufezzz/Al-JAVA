@@ -1,0 +1,88 @@
+/*class Cycle
+{
+    private int maxSize;
+    private long[] cycleArrays;
+    private int front;
+    private int rear;
+    private int nItems;
+
+    public Cycle(int size)
+    {
+        maxSize = size;
+        cycleArrays = new long[maxSize];
+        front=0;
+        rear = -1;//при нуле будет 0 вписан в очередь
+        nItems=0;
+    }
+
+    public void insert(long value)
+    {
+        if (rear == (maxSize-1))
+        {rear = -1;}
+        cycleArrays[++rear] = value;
+        nItems++;
+    }
+
+    public long remove()
+    {
+        long j = cycleArrays[front++];
+        if (front==(maxSize))//при выходе за границу
+        {front=0;}
+        nItems--;
+        return j;
+    }
+
+    public long peekFront()
+    {
+        return cycleArrays[front];
+    }
+
+    public long peekRear()
+    {
+        return cycleArrays[rear];
+    }
+
+    public boolean isEmpty()
+    {
+        return (nItems==0);
+    }
+
+    public boolean isFull()
+    {
+        return (nItems==maxSize);
+    }
+
+    public int size()
+    {
+        return nItems;
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Cycle cycle;//и операясь на класс
+        cycle = new Cycle(7);//мы используем метод
+        cycle.insert(12);
+        cycle.insert(14);
+        cycle.insert(16);
+        cycle.insert(18);
+        cycle.insert(24);
+
+
+
+
+        System.out.println("Size: " + cycle.size());
+
+        System.out.println("Front Value: " + cycle.peekFront());
+        System.out.println("Rear Value: " + cycle.peekRear());
+
+        while(!cycle.isEmpty())
+        {
+            long value = cycle.remove();
+            System.out.print(value);
+            System.out.println(" ");
+        }
+    }
+}
