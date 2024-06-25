@@ -1,0 +1,122 @@
+class Link
+{
+    public int iData; // данные (ключ)
+    public double dData; // данные
+    public Link next; // следующий элемент в списке
+
+    public Link(int id, double dd) // конструктор
+    {
+        iData = id;
+        dData = dd;
+    }
+
+    public void displayLink()
+    {
+        System.out.print("{" + iData +", "+ dData + "}  ");
+    }
+
+}
+
+
+class LinkList
+{
+    private Link first; // ссылка на 1й элемент списка
+
+    public LinkList() // конструктор
+    {
+        first = null; //список пока не содержит элементов
+    }
+
+    public boolean isEmpty() // true,если список пуст
+    {
+        return (first==null);
+    }
+
+    // вставка элемента в начало списка
+    public void insertFirst(int id, double dd)
+
+    { // создание нового элемента
+        Link newLink = new Link(id, dd);
+        newLink.next = first; // newLink —> старое значение first
+        first = newLink; // first —> newLink
+
+    }
+
+    public Link deleteFirst() //удаление 1го элемента
+    {
+        Link temp = first; // сохранение ссылки
+        first = first.next; // удаление: first-->ссылка на 2й элемент
+        return temp; // метод возвращает ссылку на удаленный элемент
+    }
+
+    // удаление элемента по значению id
+    public void deleteById(int id)
+    {
+        Link current/*тек*/ = first;
+        Link previous/*пред*/ = null;
+        while (current != null) {
+            if (current.iData == id) {
+                if (previous == null) {
+                    first = current.next;
+                } else {
+                    previous.next = current.next;
+                }
+                return;
+            }
+            previous = current;
+            current = current.next;
+        }
+    }
+
+    // поиск элемента по значению id
+    public void findById(int id) {
+        Link current = first;
+        while (current != null) {
+            if (current.iData == id) {
+                break;
+            }
+            current = current.next;
+        }
+        if (current==null){
+            System.out.println("элемент" + " "+id+" "+ "не найден");}
+        else {System.out.println("элемент"+ " "+id+" "+"найден");}
+    }
+
+    public void displayList()
+    {
+        System.out.print("Spisok (first-->last):");
+        Link current = first; // от начала списка
+        while(current != null) // перемещение до конца списка
+        {
+            current.displayLink(); // вывод данных
+            current = current.next; // переход к новому элементу
+        }
+        System. out.println("");
+    }
+}
+
+class LinkListApp
+{
+    public static void main(String[] args)
+    {
+        LinkList theList = new LinkList(); // создание нового списка
+        theList.insertFirst(1, 0.99); // вставка 4х элементов
+        theList.insertFirst(2, 32.1);
+        theList.insertFirst(3, 25.4);
+        theList.insertFirst(4, 88.99);
+        theList.insertFirst(5, 13.33);
+        theList.insertFirst(6, 32.01);
+
+        theList.displayList(); // вывод содержимого списка
+
+        theList.findById(1);
+        theList.findById(6);
+        theList.findById(8);
+
+        theList.deleteById(4);
+        theList.deleteFirst();// удаление элемента с id 4
+        theList.displayList(); // вывод содержимого списка после удаления
+
+
+    }
+}
