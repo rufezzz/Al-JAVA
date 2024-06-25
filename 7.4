@@ -1,0 +1,123 @@
+class Cycle
+{
+    public int iData;
+    public double dData;
+    public Cycle next;
+
+    public Cycle(int id, double dd) {
+        iData = id;
+        dData = dd;
+        next = null;
+    }
+
+
+    public void displayLink() {
+        System.out.print("{" + iData + ", " + dData + "} ");
+    }
+}
+
+class LinkedCycle {
+    private Cycle first;
+    private Cycle last;
+
+    public LinkedCycle()
+    {
+        first = null;
+        last = null;
+    }
+
+    public boolean isEmpty() {
+        return first == null;
+    }
+
+    public void insert(int id, double dd) {
+        Cycle newCycle = new Cycle(id, dd);
+        if (isEmpty()) {
+            first = newCycle;
+        } else {
+            last.next = newCycle;
+        }
+        last = newCycle;
+    }
+
+
+    public Cycle remove() {
+        if (isEmpty()) {
+            System.out.println("ТУТА ПУСТО.");
+            return null;
+        }
+        Cycle temp = first;
+        first = first.next;
+        if (first == null) {
+            last = null;
+        }
+        return temp;
+    }
+    public Cycle peekL()
+    {
+        if (first == null) {
+            return null;
+        } else {
+            Cycle current = first;
+            while (current.next != null) {
+                current = current.next;
+            }
+            return current;
+        }
+    }
+    public Cycle peekF()
+    {
+        if (first == null) {
+            return null;
+        } else {
+            Cycle current = first;
+            return current;
+        }
+    }
+
+    public int size() {
+        Cycle current = first;
+        int l=0;
+        while(current != null){
+            l+=1;
+            current = current.next;
+        }
+        return l;
+    }
+
+    public void display() {
+        Cycle current = first;
+        while (current != null) {
+            current.displayLink();
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedCycle Cycle = new LinkedCycle();
+        System.out.println("Cycle ");
+
+        Cycle.insert(5, 1.5);
+        Cycle.insert(1, 2.3);
+        Cycle.insert(3, 3.4);
+        Cycle.insert(2, 4.5);
+
+        Cycle.display();
+        System.out.println("Пуст ли список: " + Cycle.isEmpty());
+        System.out.print("Нижний элемент: ");
+        Cycle.peekL().displayLink();
+        System.out.println("");
+        System.out.print("Верхний элемент: ");
+        Cycle.peekF().displayLink();
+        System.out.println("");
+        System.out.print("Удаленный элемент: ");
+        Cycle.remove().displayLink();
+        System.out.println("");
+        System.out.print("Удаленный элемент: ");
+        Cycle.remove().displayLink();
+        System.out.println("");
+        System.out.println("Size=: " + Cycle.size());
+        Cycle.display();
+    }
+}
