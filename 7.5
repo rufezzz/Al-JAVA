@@ -1,0 +1,116 @@
+class Priora {
+    public int iData; // данные (ключ)
+    public double dData; // данные
+    public Priora next; // следующий элемент в списке
+
+    public Priora(int id, double dd) // конструктор
+    {
+        iData = id; // инициализация данных
+        dData = dd; // (‘next' автоматически присваивается null)
+    }
+
+    public void displayLink() // вывод содержимого элемента
+    {
+        System.out.print("{" + iData +", "+ dData + "}");
+    }
+}
+class PrioraList
+{
+    private Priora first;
+
+    public PrioraList()
+    {
+        first = null;
+    }
+
+    public void display()
+    {
+        Priora current = first;
+        while (current != null) {
+            current.displayLink();
+            System.out.print(" ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+    public boolean isEmpty()
+    {
+        return first == null;
+    }
+
+    public void insert(int id, double dd) {
+        Priora newPriora = new Priora(id, dd); // Создаем новый элемент с переданным значением
+        Priora previous = null;
+        Priora current = first;
+
+        while (current != null && id > current.iData)//СРАВНЕНИЕ НОВОГО КЛЮЧА СО СТАРЫм
+        {
+            previous = current;
+            current = current.next;
+        }
+
+        if (previous == null) { // Вставка элемента в начало списка
+            newPriora.next = first;
+            first = newPriora;
+        } else { // Вставка элемента в середину списка
+            previous.next = newPriora;
+            newPriora.next = current;
+        }
+    }
+    public Priora remove()
+    {
+        if (isEmpty()) {
+            System.out.println("Список пуст!");
+            return null;
+        }
+
+        if (first.next == null) { // Удаление первого элемента
+            Priora temp = first;
+            first = null;
+            return temp;
+        }
+
+        Priora current = first;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+
+        Priora last = current.next; // Последний элемент
+        current.next = null;
+        return last;
+    }
+    public int size() {
+        Priora current = first;
+        int l=0;
+        while(current != null){
+            l+=1;
+            current = current.next;
+        }
+        return l;
+    }
+
+
+    public static void main(String[] args) {
+        PrioraList priora = new PrioraList();
+        System.out.println("ПРИОРИТЕТНАЯ ОЧЕРЕДЬ");
+
+        priora.insert(5, 1.5);
+        priora.insert(1, 2.5);
+        priora.insert(3, 3.5);
+        priora.insert(2, 4.5);
+
+        priora.display();
+        System.out.print("РАЗМЕР: "+ priora.size());
+        System.out.println(" ");
+
+
+        while (!priora.isEmpty())
+        {
+            priora.remove().displayLink();
+            System.out.print(" ");
+        }
+
+        priora.display();
+
+    }
+}
